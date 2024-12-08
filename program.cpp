@@ -1,4 +1,5 @@
 #include "util.h"
+#include "tree.cpp"
 
 using namespace std;
 

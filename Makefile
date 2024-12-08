@@ -1,5 +1,5 @@
 HEADERS = util.h
-OBJECTS = program.o
+OBJECTS = program.o util.o
 EPATH = ./build/
 
 default: program
@@ -8,8 +8,8 @@ default: program
 	g++ -c $< -o $(EPATH)$@
 
 program: $(OBJECTS)
-	g++ $(EPATH)$(OBJECTS) -o $(EPATH)$@
+	g++ $(EPATH)*.o -o $(EPATH)$@
 
 clean:
-	-rm -f $(EPATH)$(OBJECTS)
+	-rm -f $(EPATH)*.o
 	-rm -f $(EPATH)program
