@@ -1,7 +1,7 @@
 #include "util.h"
 
 std::string bin_repr(int n) {
-    bool is_neg(n < 0);
+    const bool is_neg(n < 0);
     if (is_neg) n = -n;
     std::string repr;
     while(n > 0) {
