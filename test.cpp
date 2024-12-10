@@ -3,8 +3,7 @@
 
 using namespace std;
 
-
-void test_bitree() {
+void test_tree() {
     const vector<int> v1 = {2,1,5,4,9,11,34,3,4,7,19};
     print_vector(v1);
 
@@ -20,12 +19,3 @@ void test_bitree() {
 
     cout << b1.repr() << endl;
 }
-
-
-int main() {
-
-    test_bitree();
-
-    return 0;
-}
-

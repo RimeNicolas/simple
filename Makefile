@@ -1,15 +1,16 @@
 HEADERS = util.h
-OBJECTS = program.o util.o
+OBJECTS = main.o util.o
 EPATH = ./build/
+OPATH = ./build/object/
 
-default: program
+default: main
 
 %.o: ./%.cpp $(HEADERS)
-	g++ -c $< -o $(EPATH)$@
+	g++ -c $< -o $(OPATH)$@
 
-program: $(OBJECTS)
-	g++ $(EPATH)*.o -o $(EPATH)$@
+main: $(OBJECTS)
+	g++ $(OPATH)*.o -o $(EPATH)$@
 
 clean:
-	-rm -f $(EPATH)*.o
-	-rm -f $(EPATH)program
+	-rm -f $(OPATH)*.o
+	-rm -f $(EPATH)main
