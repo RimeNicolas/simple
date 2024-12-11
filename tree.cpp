@@ -1,10 +1,26 @@
-// Binary Indexed Tree (Fenwick tree)
-class BIT {
-    private:
+
+
+class Tree {
+    protected:
+        size_t v_size;
         std::vector<int> data;
     public:
-        BIT(const std::vector<int>& v) : data(v.size()+1) {
-            for (size_t i(0); i < v.size(); i++) {
+        Tree(size_t size, size_t data_size) {
+            v_size = size;
+            data.resize(data_size);
+        };
+        virtual ~Tree() = default;
+
+        virtual void insert(int idx, const int val) = 0;
+
+        virtual int rq(const int l, const int r) const = 0;
+};
+
+// Binary Indexed Tree (Fenwick tree)
+class BITree: public Tree {
+    public:
+        BITree(const std::vector<int>& v) : Tree(v.size(), v.size()+1) {
+            for (size_t i(0); i < v_size; i++) {
                 insert(i+1, v[i]);
             }
         }
@@ -16,7 +32,7 @@ class BIT {
             }
         }
 
-        int rsq(const int l, const int r) const {
+        int rq(const int l, const int r) const {
             return getSum(r) - getSum(l);
         }
 
@@ -58,12 +74,9 @@ class BIT {
 
 
 // Segment tree
-class SegmentTree {
-    private:
-        size_t v_size;
-        std::vector<int> data;
+class SegmentTree : public Tree {
     public:
-        SegmentTree(const std::vector<int>& v) : v_size(v.size()), data(2*v_size) {
+        SegmentTree(const std::vector<int>& v) : Tree(v.size(), 2 * v.size()) {
             for (size_t i(0); i < v_size; i++) {
                 data[v_size+i] = v[i];
             }
@@ -79,7 +92,7 @@ class SegmentTree {
             }
         }
 
-        int rsq(int l, int r) const {
+        int rq(int l, int r) const {
             int res(0);
 
             for (l += v_size, r += v_size; l < r; l >>= 1, r >>= 1) {
