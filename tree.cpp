@@ -19,25 +19,6 @@ class Tree {
 
 //Abstract
 class BinaryTree: public Tree {
-    protected:
-        void intl_preorder_traversal(std::vector<int>& t, const size_t i) const {
-            if (i >= data.size()) return;
-            t.push_back(data[i]);
-            intl_preorder_traversal(t, i << 1);
-            intl_preorder_traversal(t, i << 1 | 1);
-        }
-        void intl_inorder_traversal(std::vector<int>& t, const size_t i) const {
-            if (i >= data.size()) return;
-            intl_inorder_traversal(t, i << 1);
-            t.push_back(data[i]);
-            intl_inorder_traversal(t, i << 1 | 1);
-        }
-        void intl_postorder_traversal(std::vector<int>& t, const size_t i) const {
-            if (i >= data.size()) return;
-            intl_postorder_traversal(t, i << 1);
-            intl_postorder_traversal(t, i << 1 | 1);
-            t.push_back(data[i]);
-        }
     public:
         BinaryTree(size_t size, size_t data_size) : Tree(size, data_size) {
             v_size = size;
@@ -45,21 +26,30 @@ class BinaryTree: public Tree {
         };
         virtual ~BinaryTree() = default;
 
-        enum TypeTraversal { inorder, preorder, postorder };
+        enum TypeTraversal { preorder, inorder, postorder };
 
         std::vector<int> traversal(TypeTraversal typ) const {
             std::vector<int> trav;
             switch(typ){
                 case TypeTraversal::preorder:
-                    intl_preorder_traversal(trav, 1);
+                    intl_traversal(trav, 1, typ);
                     break;
                 case TypeTraversal::inorder:
-                    intl_inorder_traversal(trav, 1);
+                    intl_traversal(trav, 1, typ);
                     break;
                 case TypeTraversal::postorder:
-                    intl_postorder_traversal(trav, 1);
+                    intl_traversal(trav, 1, typ);
             }
             return trav;
+        }
+    protected:
+        void intl_traversal(std::vector<int>& t, const size_t i, TypeTraversal typ) const {
+            if (i >= data.size()) return;
+            if (typ == TypeTraversal::preorder) t.push_back(data[i]);
+            intl_traversal(t, i << 1, typ);
+            if (typ == TypeTraversal::inorder) t.push_back(data[i]);
+            intl_traversal(t, i << 1 | 1, typ);
+            if (typ == TypeTraversal::postorder) t.push_back(data[i]);
         }
 };
 
