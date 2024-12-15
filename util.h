@@ -28,3 +28,4 @@ void print_vector(std::vector<T> v) {
 
 std::string bin_repr(int n); 
 
+void mergesort(std::vector<int>& v, size_t l, size_t r);
