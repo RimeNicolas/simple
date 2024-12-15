@@ -1,5 +1,6 @@
 
 
+//Abstract
 class Tree {
     protected:
         size_t v_size;
@@ -14,6 +15,62 @@ class Tree {
         virtual void insert(int idx, const int val) = 0;
 
         virtual int rq(const int l, const int r) const = 0;
+};
+
+//Abstract
+class BinaryTree: public Tree {
+    protected:
+        void intl_preorder_traversal(std::vector<int>& t, const size_t i) const {
+            if (i >= data.size()) return;
+            t.push_back(data[i]);
+            intl_preorder_traversal(t, i << 1);
+            intl_preorder_traversal(t, i << 1 | 1);
+        }
+        void intl_inorder_traversal(std::vector<int>& t, const size_t i) const {
+            if (i >= data.size()) return;
+            intl_inorder_traversal(t, i << 1);
+            t.push_back(data[i]);
+            intl_inorder_traversal(t, i << 1 | 1);
+        }
+        void intl_postorder_traversal(std::vector<int>& t, const size_t i) const {
+            if (i >= data.size()) return;
+            intl_postorder_traversal(t, i << 1);
+            intl_postorder_traversal(t, i << 1 | 1);
+            t.push_back(data[i]);
+        }
+    public:
+        BinaryTree(size_t size, size_t data_size) : Tree(size, data_size) {
+            v_size = size;
+            data.resize(data_size);
+        };
+        virtual ~BinaryTree() = default;
+
+        enum TypeTraversal { inorder, preorder, postorder };
+
+        std::vector<int> traversal(TypeTraversal typ) const {
+            std::vector<int> trav;
+            switch(typ){
+                case TypeTraversal::preorder:
+                    intl_preorder_traversal(trav, 1);
+                    break;
+                case TypeTraversal::inorder:
+                    intl_inorder_traversal(trav, 1);
+                    break;
+                case TypeTraversal::postorder:
+                    intl_postorder_traversal(trav, 1);
+            }
+            return trav;
+        }
+        std::vector<int> inorder_traversal() const {
+            std::vector<int> trav;
+            this->intl_inorder_traversal(trav, 1);
+            return trav;
+        }
+        std::vector<int> preorder_traversal() const {
+            std::vector<int> trav;
+            this->intl_preorder_traversal(trav, 1);
+            return trav;
+        }
 };
 
 // Binary Indexed Tree (Fenwick tree)
@@ -74,9 +131,9 @@ class BITree: public Tree {
 
 
 // Segment tree
-class SegmentTree : public Tree {
+class SegmentTree : public BinaryTree {
     public:
-        SegmentTree(const std::vector<int>& v) : Tree(v.size(), 2 * v.size()) {
+        SegmentTree(const std::vector<int>& v) : BinaryTree(v.size(), 2 * v.size()) {
             for (size_t i(0); i < v_size; i++) {
                 data[v_size+i] = v[i];
             }

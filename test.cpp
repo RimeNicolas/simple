@@ -4,7 +4,7 @@
 using namespace std;
 
 void test_tree() {
-    const vector<int> v1 = {2,1,9,8,4};
+    const vector<int> v1 = {2,1,9,8};
     print_vector(v1);
 
     BITree b1(v1);
@@ -18,4 +18,9 @@ void test_tree() {
     cout << st1.rq(0,v1.size()) << endl;
 
     cout << b1.repr() << endl;
+
+
+    print_vector(st1.traversal(BinaryTree::TypeTraversal::preorder));
+    print_vector(st1.traversal(BinaryTree::TypeTraversal::inorder));
+    print_vector(st1.traversal(BinaryTree::TypeTraversal::postorder));
 }
