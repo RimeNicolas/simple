@@ -61,16 +61,6 @@ class BinaryTree: public Tree {
             }
             return trav;
         }
-        std::vector<int> inorder_traversal() const {
-            std::vector<int> trav;
-            this->intl_inorder_traversal(trav, 1);
-            return trav;
-        }
-        std::vector<int> preorder_traversal() const {
-            std::vector<int> trav;
-            this->intl_preorder_traversal(trav, 1);
-            return trav;
-        }
 };
 
 // Binary Indexed Tree (Fenwick tree)
