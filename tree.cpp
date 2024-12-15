@@ -26,7 +26,7 @@ class BinaryTree: public Tree {
         };
         virtual ~BinaryTree() = default;
 
-        enum TypeTraversal { preorder, inorder, postorder };
+        enum TypeTraversal { preorder, inorder, postorder, level };
 
         std::vector<int> traversal(TypeTraversal typ) const {
             std::vector<int> trav;
@@ -39,6 +39,8 @@ class BinaryTree: public Tree {
                     break;
                 case TypeTraversal::postorder:
                     intl_traversal(trav, 1, typ);
+                case TypeTraversal::level:
+                    intl_level_traversal(trav, 1);
             }
             return trav;
         }
@@ -50,6 +52,20 @@ class BinaryTree: public Tree {
             if (typ == TypeTraversal::inorder) t.push_back(data[i]);
             intl_traversal(t, i << 1 | 1, typ);
             if (typ == TypeTraversal::postorder) t.push_back(data[i]);
+        }
+        void intl_level_traversal(std::vector<int>& t, size_t i) const {
+            std::queue<int> q;
+            q.push(i);
+
+            while(!q.empty()) {
+                i = q.front();
+                if (i >= data.size()) break;
+                q.pop();
+                t.push_back(data[i]);
+                q.push(i << 1);
+                q.push(i << 1 | 1);
+            }
+                
         }
 };
 

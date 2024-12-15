@@ -23,4 +23,5 @@ void test_tree() {
     print_vector(st1.traversal(BinaryTree::TypeTraversal::preorder));
     print_vector(st1.traversal(BinaryTree::TypeTraversal::inorder));
     print_vector(st1.traversal(BinaryTree::TypeTraversal::postorder));
+    print_vector(st1.traversal(BinaryTree::TypeTraversal::level));
 }
