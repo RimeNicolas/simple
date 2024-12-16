@@ -19,16 +19,23 @@ std::string bin_repr(int n) {
 
 
 void merge(std::vector<int>& v, const size_t l, const size_t m, const size_t r) {
-    size_t i(l), j(m+1);
+    std::vector<int> v_l(v.begin() + l, v.begin() + m + 1);
+    std::vector<int> v_r(v.begin() + m + 1, v.begin() + r + 1);
+    size_t i(0), j(0), k(l);
 
-    while (i <= m && j <= r) {
-        if (v[i] <= v[j]) {
-            i++;
+    while (i < v_l.size() && j < v_r.size()) {
+        if (v_l[i] <= v_r[j]) {
+            v[k++] = v_l[i++];
         }
         else {
-            std::swap(v[i], v[j]);
-            j++;
+            v[k++] = v_r[j++];
         }
+    }
+    while (i < v_l.size()) {
+        v[k++] = v_l[i++];
+    }
+    while (j < v_r.size()) {
+        v[k++] = v_r[j++];
     }
 }
 
@@ -40,6 +47,5 @@ void mergesort(std::vector<int>& v, const size_t l, const size_t r) {
     mergesort(v, l, m);
     mergesort(v, m+1, r);
 
-    //print_vector(v);
     merge(v, l, m, r);
 }

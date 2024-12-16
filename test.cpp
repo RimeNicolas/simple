@@ -27,7 +27,7 @@ void test_tree() {
 }
 
 void test_sort() {
-    vector<int> v1 = {3,1,4,2};
+    vector<int> v1 = {1,4,2,3};
     mergesort(v1, 0, v1.size() - 1);
     print_vector(v1);
 
@@ -35,7 +35,11 @@ void test_sort() {
     mergesort(v1, 0, v1.size() - 1);
     print_vector(v1);
 
-    v1 = {3,2,1,0};
+    v1 = {3,2,4,1};
+    mergesort(v1, 0, v1.size() - 1);
+    print_vector(v1);
+
+    v1 = {5,3,2,4,1};
     mergesort(v1, 0, v1.size() - 1);
     print_vector(v1);
 }
