@@ -49,3 +49,34 @@ void mergesort(std::vector<int>& v, const size_t l, const size_t r) {
 
     merge(v, l, m, r);
 }
+
+
+void heapify(std::vector<int>& v, size_t n, size_t i) {
+    size_t largest(i), l(2*i + 1), r(2*i + 2);
+
+    if (l < n && v[l] > v[largest]) largest = l;
+    if (r < n && v[r] > v[largest]) largest = r;
+
+    if (largest != i) {
+        std::swap(v[i], v[largest]);
+        heapify(v, n, largest);
+    }
+}
+
+    
+void maxheap(std::vector<int>& v) {
+    for (int i(v.size()/2 - 1); i >= 0; i--) {
+        heapify(v, v.size(), i);
+    }
+}
+
+
+void heapsort(std::vector<int>& v) {
+    maxheap(v);
+    for (int i(v.size() - 1); i > 0; i--) {
+        std::swap(v[0], v[i]);
+        heapify(v, i, 0);
+    }
+}
+
+
