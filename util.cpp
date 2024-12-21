@@ -63,6 +63,11 @@ void heapify(std::vector<int>& v, size_t n, size_t i) {
     }
 }
 
+
+void mergesort(std::vector<int>& v) {
+    mergesort(v, 0, v.size() - 1);
+}
+
     
 void maxheap(std::vector<int>& v) {
     for (int i(v.size()/2 - 1); i >= 0; i--) {
@@ -77,6 +82,36 @@ void heapsort(std::vector<int>& v) {
         std::swap(v[0], v[i]);
         heapify(v, i, 0);
     }
+}
+
+
+int partition(std::vector<int>& v, const int l, const int r) {
+    int pivot = v[r];
+    int i(l);
+
+    for (int j(l); j < r; j++) {
+        if(v[j] < pivot) {
+            std::swap(v[i++], v[j]);
+        }
+    }
+
+    std::swap(v[i], v[r]);
+    return i;
+}
+
+
+void quicksort(std::vector<int>& v, int l, int r) {
+    if (l < r) {
+        int p = partition(v, l, r);
+        quicksort(v, l, p - 1);
+        quicksort(v, p + 1, r);
+    }
+}
+
+
+void quicksort(std::vector<int>& v) {
+    int v_size(v.size());
+    quicksort(v, 0, v_size - 1);
 }
 
 

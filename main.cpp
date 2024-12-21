@@ -6,8 +6,7 @@ using namespace std;
 int main() {
 
     //test_tree();
-    //test_mergesort();
-    test_heapsort();
+    test_sort();
 
     return 0;
 }

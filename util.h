@@ -31,7 +31,16 @@ std::string bin_repr(int n);
 void mergesort(std::vector<int>& v, size_t l, size_t r);
 
 void heapify(std::vector<int>& v, size_t n, size_t i); 
+
+void mergesort(std::vector<int>& v);
     
 void maxheap(std::vector<int>& v);
 
 void heapsort(std::vector<int>& v);
+
+size_t partition(std::vector<int>& v, size_t l, size_t r);
+
+void quicksort(std::vector<int>& v, size_t l, size_t r);
+
+void quicksort(std::vector<int>& v);
+

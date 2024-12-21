@@ -26,38 +26,25 @@ void test_tree() {
     print_vector(st1.traversal(BinaryTree::TypeTraversal::level));
 }
 
-void test_mergesort() {
-    vector<int> v1 = {1,4,2,3};
-    mergesort(v1, 0, v1.size() - 1);
-    print_vector(v1);
 
-    v1 = {3,1,2};
-    mergesort(v1, 0, v1.size() - 1);
-    print_vector(v1);
+void test_sort() {
+    std::vector<std::vector<int>> v_list;
+    v_list.push_back({1,4,2,3});
+    v_list.push_back({3,1,2});
+    v_list.push_back({3,2,4,1});
+    v_list.push_back({5,3,2,4,1});
 
-    v1 = {3,2,4,1};
-    mergesort(v1, 0, v1.size() - 1);
-    print_vector(v1);
-
-    v1 = {5,3,2,4,1};
-    mergesort(v1, 0, v1.size() - 1);
-    print_vector(v1);
+    for (auto el : v_list) {
+        mergesort(el);
+        print_vector(el);
+    }
+    for (auto el : v_list) {
+        heapsort(el);
+        print_vector(el);
+    }
+    for (auto el : v_list) {
+        quicksort(el);
+        print_vector(el);
+    }
 }
 
-void test_heapsort() {
-    vector<int> v1 = {1,4,2,3};
-    heapsort(v1);
-    print_vector(v1);
-
-    v1 = {3,1,2};
-    heapsort(v1);
-    print_vector(v1);
-
-    v1 = {3,2,4,1};
-    heapsort(v1);
-    print_vector(v1);
-
-    v1 = {5,3,2,4,1};
-    heapsort(v1);
-    print_vector(v1);
-}
