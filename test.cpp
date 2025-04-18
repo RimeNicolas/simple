@@ -48,3 +48,17 @@ void test_sort() {
     }
 }
 
+void test_pk() {
+    vector<vector<double>> trx;
+    trx.push_back({50, 80});
+    trx.push_back({50, 90});
+    trx.push_back({10, 100});
+    double avg_price = f1(trx);
+    cout << avg_price << endl;
+    vector<vector<double>> trx2;
+    trx2.push_back({65, avg_price});
+    trx2.push_back({20, 110});
+    avg_price = f1(trx2);
+    cout << avg_price << endl;
+}
+

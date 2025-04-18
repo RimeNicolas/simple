@@ -113,4 +113,14 @@ void quicksort(std::vector<int>& v) {
     quicksort(v, 0, v_size - 1);
 }
 
+double f1(std::vector<std::vector<double>> trx) {
+    double avg_price(0);
+    int sum_qty(0);
+    for (const auto el : trx) {
+        avg_price += el[0] * el[1];
+        sum_qty += el[0];
+    }
+    avg_price /= sum_qty;
+    return avg_price;
+}
 
