@@ -50,6 +50,10 @@ void mergesort(std::vector<int>& v, const size_t l, const size_t r) {
     merge(v, l, m, r);
 }
 
+void mergesort(std::vector<int>& v) {
+    mergesort(v, 0, v.size() - 1);
+}
+
 
 void heapify(std::vector<int>& v, size_t n, size_t i) {
     size_t largest(i), l(2*i + 1), r(2*i + 2);
@@ -61,11 +65,6 @@ void heapify(std::vector<int>& v, size_t n, size_t i) {
         std::swap(v[i], v[largest]);
         heapify(v, n, largest);
     }
-}
-
-
-void mergesort(std::vector<int>& v) {
-    mergesort(v, 0, v.size() - 1);
 }
 
     

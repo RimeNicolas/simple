@@ -21,6 +21,10 @@
 template<class T>
 void print_vector(std::vector<T> v) {
     std::cout << '(';
+    if (v.size() == 0) {
+            std::cout << ')' << std::endl;
+            return;
+        }
     for (size_t i(0); i < v.size() - 1; i++)
         std::cout << v[i] << ',';
     std::cout << v.back() << ')' << std::endl;
