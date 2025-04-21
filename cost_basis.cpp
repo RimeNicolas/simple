@@ -3,26 +3,27 @@ class Lot {
 public:
     double qty;
     double price;
-    Lot(double qty, double price) : qty(qty), price(price) {};
+    double fees;
+    Lot(double qty, double price, double fees = 0) : qty(qty), price(price), fees(fees) {};
 };
 
 Lot avg(std::vector<Lot> lots) {
-    Lot avg(0,0);
+    Lot avg(0,0,0);
     for (const auto el : lots) {
         avg.qty += el.qty;
         avg.price += el.qty * el.price;
+        avg.fees += el.qty * el.fees;
     }
     avg.price /= avg.qty;
-    Lot ans = {avg.qty, avg.price};
-    return ans;
+    avg.fees /= avg.qty;
+    return Lot(avg.qty, avg.price, avg.fees);
 }
 
 double redu_avg(std::vector<Lot>& lots, const Lot redu) {
-    Lot tmp = avg(lots);
-    double cg = (redu.price - tmp.price) * redu.qty;
+    Lot avg_lot = avg(lots);
     lots.clear();
-    lots.push_back({tmp.qty - redu.qty, tmp.price});
-    return cg;
+    lots.push_back(Lot(avg_lot.qty - redu.qty, avg_lot.price, avg_lot.fees));
+    return ((redu.price - avg_lot.price)  - avg_lot.fees) * redu.qty;
 }
 
 double redu_fifo(std::queue<Lot>& lots, Lot redu) {

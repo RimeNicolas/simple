@@ -51,13 +51,13 @@ void test_sort() {
 
 
 string print(Lot lot) {
-    return "qty: " + to_string(lot.qty) + ", price: " + to_string(lot.price);
+    return "qty: " + to_string(lot.qty) + ", price: " + to_string(lot.price) + ", fees: " + to_string(lot.fees);
 }
 
 
 void test_avg(const vector<Lot>& v_lots, const Lot& redu) {
     vector<Lot> lots(v_lots);
-    redu_avg(lots, redu);
+    cout << "gain avg: " << redu_avg(lots, redu) << endl;
     cout << "avg cost basis: " << print(avg(lots)) << endl;
     lots.push_back(Lot(5, 25));
     cout << "avg cost basis: " << print(avg(lots)) << endl;
@@ -87,12 +87,12 @@ void test_lifo(const vector<Lot>& v_lots, const Lot& redu) {
 void test_lkm() {
     vector<Lot> lots;
     //buy 10 at 10$
-    lots.push_back(Lot(10, 10));
+    lots.push_back(Lot(10, 10, 1));
     //buy 10 at 20$
-    lots.push_back(Lot(10, 20));
+    lots.push_back(Lot(10, 20, 2));
     cout << "avg cost basis: " << print(avg(lots)) << endl;
     //sell 15 at 25$
-    Lot redu(15, 25);
+    Lot redu(15, 25, 0);
     cout << "AVG" << endl;
     test_avg(lots, redu);
     cout << "FIFO" << endl;
