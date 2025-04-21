@@ -7,7 +7,7 @@ int main() {
 
     //test_tree();
     //test_sort();
-    test_pk();
+    test_lkm();
 
     return 0;
 }

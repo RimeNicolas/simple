@@ -48,4 +48,3 @@ void quicksort(std::vector<int>& v, size_t l, size_t r);
 
 void quicksort(std::vector<int>& v);
 
-double f1(std::vector<std::vector<double>> trx);

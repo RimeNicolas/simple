@@ -1,5 +1,6 @@
 #include "util.h"
 #include "tree.cpp"
+#include "cost_basis.cpp"
 
 using namespace std;
 
@@ -48,17 +49,54 @@ void test_sort() {
     }
 }
 
-void test_pk() {
-    vector<vector<double>> trx;
-    trx.push_back({50, 80});
-    trx.push_back({50, 90});
-    trx.push_back({10, 100});
-    double avg_price = f1(trx);
-    cout << avg_price << endl;
-    vector<vector<double>> trx2;
-    trx2.push_back({65, avg_price});
-    trx2.push_back({20, 110});
-    avg_price = f1(trx2);
-    cout << avg_price << endl;
+
+string print(Lot lot) {
+    return "qty: " + to_string(lot.qty) + ", price: " + to_string(lot.price);
 }
 
+
+void test_avg(const vector<Lot>& v_lots, const Lot& redu) {
+    vector<Lot> lots(v_lots);
+    redu_avg(lots, redu);
+    cout << "avg cost basis: " << print(avg(lots)) << endl;
+    lots.push_back(Lot(5, 25));
+    cout << "avg cost basis: " << print(avg(lots)) << endl;
+}
+
+
+void test_fifo(const vector<Lot>& v_lots, const Lot& redu) {
+    queue<Lot> lots;
+    for (const auto el : v_lots) {
+        lots.push(el);
+    }
+    cout << "gain fifo: " << redu_fifo(lots, redu) << endl;
+    cout << "remaining lot: " << print(lots.front()) << endl;
+}
+
+
+void test_lifo(const vector<Lot>& v_lots, const Lot& redu) {
+    stack<Lot> lots;
+    for (const auto el : v_lots) {
+        lots.push(el);
+    }
+    cout << "gain lifo: " << redu_lifo(lots, redu) << endl;
+    cout << "remaining lot: " << print(lots.top()) << endl;
+}
+
+
+void test_lkm() {
+    vector<Lot> lots;
+    //buy 10 at 10$
+    lots.push_back(Lot(10, 10));
+    //buy 10 at 20$
+    lots.push_back(Lot(10, 20));
+    cout << "avg cost basis: " << print(avg(lots)) << endl;
+    //sell 15 at 25$
+    Lot redu(15, 25);
+    cout << "AVG" << endl;
+    test_avg(lots, redu);
+    cout << "FIFO" << endl;
+    test_fifo(lots, redu);
+    cout << "LIFO" << endl;
+    test_lifo(lots, redu);
+}
