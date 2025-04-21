@@ -92,7 +92,7 @@ void test_lkm() {
     lots.push_back(Lot(10, 20, 2));
     cout << "avg cost basis: " << print(avg(lots)) << endl;
     //sell 15 at 25$
-    Lot redu(15, 25, 0);
+    Lot redu(15, 25, 1.5);
     cout << "AVG" << endl;
     test_avg(lots, redu);
     cout << "FIFO" << endl;

@@ -2,8 +2,8 @@
 class Lot {
 public:
     double qty;
-    double price;
-    double fees;
+    double price; //unit price
+    double fees;  //unit fees
     Lot(double qty, double price, double fees = 0) : qty(qty), price(price), fees(fees) {};
 };
 
@@ -23,39 +23,45 @@ double redu_avg(std::vector<Lot>& lots, const Lot redu) {
     Lot avg_lot = avg(lots);
     lots.clear();
     lots.push_back(Lot(avg_lot.qty - redu.qty, avg_lot.price, avg_lot.fees));
-    return ((redu.price - avg_lot.price)  - avg_lot.fees) * redu.qty;
+    return ((redu.price - avg_lot.price)  - (avg_lot.fees + redu.fees)) * redu.qty;
 }
 
-double redu_fifo(std::queue<Lot>& lots, Lot redu) {
+double redu_fifo(std::queue<Lot>& lots, const Lot redu) {
     double cg(0);
-    while (redu.qty > 0) {
-        if (lots.front().qty <= redu.qty) {
-            cg += (redu.price - lots.front().price) * lots.front().qty;
-            redu.qty -= lots.front().qty;
+    double rem_qty(redu.qty); //remaining qty
+    double unit_cg(0);
+    while (rem_qty > 0) {
+        unit_cg = redu.price - lots.front().price - lots.front().fees;
+        if (lots.front().qty <= rem_qty) {
+            cg += unit_cg * lots.front().qty;
+            rem_qty -= lots.front().qty;
             lots.pop();
         }
         else {
-            cg += (redu.price - lots.front().price) * redu.qty;
-            lots.front().qty -= redu.qty;
-            redu.qty = 0;
+            cg += unit_cg * rem_qty;
+            lots.front().qty -= rem_qty;
+            rem_qty = 0;
         }
     }
-    return cg;
+    return cg - redu.fees * redu.qty;
 }
 
-double redu_lifo(std::stack<Lot>& lots, Lot redu) {
+double redu_lifo(std::stack<Lot>& lots, const Lot redu) {
     double cg(0);
-    while (redu.qty > 0) {
-        if (lots.top().qty <= redu.qty) {
-            cg += (redu.price - lots.top().price) * lots.top().qty;
-            redu.qty -= lots.top().qty;
+    double rem_qty(redu.qty); //remaining qty
+    double unit_cg(0);
+    while (rem_qty > 0) {
+        unit_cg = redu.price - lots.top().price - lots.top().fees;
+        if (lots.top().qty <= rem_qty) {
+            cg += unit_cg * lots.top().qty;
+            rem_qty -= lots.top().qty;
             lots.pop();
         }
         else {
-            cg += (redu.price - lots.top().price) * redu.qty;
-            lots.top().qty -= redu.qty;
-            redu.qty = 0;
+            cg += unit_cg * rem_qty;
+            lots.top().qty -= rem_qty;
+            rem_qty = 0;
         }
     }
-    return cg;
+    return cg - redu.fees * redu.qty;
 }
