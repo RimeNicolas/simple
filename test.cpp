@@ -50,7 +50,7 @@ void test_sort() {
 }
 
 
-string print(Lot lot) {
+string print(const Lot lot) {
     return "qty: " + to_string(lot.qty) + ", price: " + to_string(lot.price) + ", fees: " + to_string(lot.fees);
 }
 
